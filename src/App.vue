@@ -7,6 +7,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat>All Events</v-btn>
+        <v-btn flat>Login</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
