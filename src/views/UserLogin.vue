@@ -12,6 +12,7 @@
         v-model="email"
         label="E-mail"
         required
+        :rules="[rules.required, rules.email]"
         ></v-text-field>
 
         <v-text-field
@@ -19,6 +20,8 @@
         type="password"
         name="input-10-1"
         label="Password"
+        required
+        :rules="[rules.required]"
         ></v-text-field>
 
         <v-btn
@@ -46,9 +49,17 @@
       return {
         email: "",
         password: "",
+        url: 'http://localhost:3000',
+        rules: {
+          required: value => !! value ||  'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          }
+        }
       }
     },
-    props: ['url'],
     methods: {
       loginAccount() {
         let obj = {
@@ -56,21 +67,19 @@
           password: this.password
         }
         axios.post(`${this.url}/users/signin`, obj)
-          .then((response) => {
-            localStorage.setItem('token', response.data.token)
-            localStorage.setItem('id', response.data.id)
-            localStorage.setItem('name', response.data.name)
-            this.$emit('user-login')
-            this.$emit('admin-login')
-            this.$router.push('/products')
+          .then(({ data }) => {
+            localStorage.setItem('token', data.token)
+            this.$router.push('/')
           })
           .catch((error) => {
             console.log(error.message);
           })
       },
-
-      isLogin() {
-        this.$emit('user-login')
+    },
+    created() {
+      let token = localStorage.getItem('token')
+      if (token.length !== 0) {
+        this.$router.push('/');
       }
     }
   }
