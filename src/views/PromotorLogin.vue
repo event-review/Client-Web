@@ -55,13 +55,7 @@
           email: this.email,
           password: this.password
         }
-<<<<<<< HEAD
         axios.post(`${this.url}/promotors/signin`, obj)
-=======
-
-        console.log(this.url)
-        axios.post(`${this.url}/users/signin`, obj)
->>>>>>> Google Map
           .then((response) => {
             localStorage.setItem('token', response.data.token)
             this.$router.push('/promotor/dashboard')
