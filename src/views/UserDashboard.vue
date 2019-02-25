@@ -15,20 +15,20 @@
         ref="form"
         >
 
-        <h2>Product Image</h2><br>
+        <h2>Profile Image</h2><br>
         <input type="file" ref="file" v-on:change="handleFileUpload()">
         <br>
 
         <v-text-field
-        v-model="productName"
-        label="Product Name"
+        v-model="eventName"
+        label="Event Name"
         required
         ></v-text-field>
 
         <v-text-field
-        v-model="productPrice"
+        v-model="eventPrice"
         type="number"
-        label="Price"
+        label="Ticket Price"
         required
         ></v-text-field>
 

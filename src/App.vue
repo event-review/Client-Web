@@ -12,7 +12,7 @@
     </v-toolbar>
 
     <v-content>
-      <router-view></router-view>
+      <router-view :url="url"></router-view>
     </v-content>
     <v-footer
       dark
@@ -48,7 +48,12 @@ export default {
   name: 'App',
   data () {
     return {
-      //
+      url: 'http://localhost:3000',
+    }
+  },
+  methods: {
+    toHome() {
+      this.$router.push('/')
     }
   }
 }
