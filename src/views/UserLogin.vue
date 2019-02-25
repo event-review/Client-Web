@@ -23,7 +23,7 @@
         required
         :rules="[rules.required]"
         ></v-text-field>
-
+        <p>Don't Have an Account, <a @click="toUserSignup">Sign Up Here!</a></p>
         <v-btn
         color="#f75611" dark
         @click="loginAccount"
@@ -76,6 +76,9 @@
             console.log(error.message);
           })
       },
+      toUserSignup() {
+        this.$router.push('/user/signup')
+      }
     },
     created() {
       let token = localStorage.getItem('token')

@@ -239,6 +239,8 @@
       },
       handleFileUpload() {
         this.file = this.$refs.file.files[0];
+        console.log(this.file,"patria")
+        // console.log(this.file, 'ini this dot file')
       },
       setAddress(address) {
         this.eventPlace = address
@@ -248,7 +250,6 @@
         this.longitude = marker.lng
       },
       addEvent() {
-        console.log('MASUK BOSQUUU')
         let newevent = {
           name: this.eventName,
           place: this.eventPlace,

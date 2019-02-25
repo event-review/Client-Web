@@ -48,10 +48,10 @@
       return {
         name: "",
         email: "",
-        password: ""
+        password: "",
+        url: 'http://localhost:3000'
       }
     },
-    props: ['url'],
     methods: {
       registerAccount() {
         let obj = {
