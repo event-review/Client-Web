@@ -138,7 +138,7 @@
       </div>
 
       <div v-if="page == 'yourevents'">
-        <v-card v-for="even in events" style="margin-bottom: 20px;">
+        <v-card v-for="(even, i) in events" :key=i style="margin-bottom: 20px;">
           <v-container
             fluid
             grid-list-lg
@@ -246,6 +246,7 @@
         })
         .then((response) => {
           this.page = "yourevents"
+          this.getEvents()
         })
         .catch((error) => {
           console.log(error);
@@ -267,9 +268,13 @@
     },
     created() {
       this.getEvents()
+      let token = localStorage.getItem('token')
+      if (token == null) {
+        this.$router.push('/promotor/signin')
+      }
     },
     mounted() {
-
+      this.getEvent()
     }
   }
 </script>

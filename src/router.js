@@ -67,6 +67,11 @@ export default new Router({
       path: '/event/report',
       name: 'eventreport',
       component: EventReport
+    },
+    {
+      path: '/event/:id',
+      name: 'eventdetail',
+      component: Detail
     }
   ]
 })
