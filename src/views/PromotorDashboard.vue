@@ -138,7 +138,7 @@
       </div>
 
       <div v-if="page == 'yourevents'">
-        <v-card style="margin-bottom: 20px;">
+        <v-card v-for="even in events" style="margin-bottom: 20px;">
           <v-container
             fluid
             grid-list-lg
@@ -146,54 +146,23 @@
           <v-layout row wrap>
             <v-flex xs4>
               <v-img
-                src="https://i.pinimg.com/originals/9a/0d/cc/9a0dccc677dc591ac8cd9e0fe35147e1.jpg"
+                :src="even.imageUrl"
                 aspect-ratio="0.667"
                 height='274'
                 contain
               ></v-img>
             </v-flex>
             <v-flex xs4>
-              <v-card-title><h3>Electro</h3></v-card-title>
+              <v-card-title><h3>{{even.name}}</h3></v-card-title>
               <v-card-text>
-                <p>21 Desember 2019, 18.00PM</p>
-                <p>Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.</p>
+                <p>{{new Date(even.date).toLocaleString().slice(0,10)}} {{even.timeStart}} - {{even.timeEnd}}</p>
+                <p>{{even.description}}</p>
               </v-card-text>
             </v-flex>
             <v-flex xs4>
               <div style="margin: 100px;">
-                <v-btn large dark color="blue">Event Report</v-btn><br>
-                <v-btn large dark color="#f75611">Event Details</v-btn><br>
-              </div>
-            </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-
-        <v-card>
-          <v-container
-            fluid
-            grid-list-lg
-          >
-          <v-layout row wrap>
-            <v-flex xs4>
-              <v-img
-                src="https://d19fbfhz0hcvd2.cloudfront.net/NDF/wp-content/uploads/2014/11/event_posters12.jpg"
-                aspect-ratio="0.667"
-                height='274'
-                contain
-              ></v-img>
-            </v-flex>
-            <v-flex xs4>
-              <v-card-title><h3>Chromeo</h3></v-card-title>
-              <v-card-text>
-                <p>21 Desember 2019, 18.00PM</p>
-                <p>Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.</p>
-              </v-card-text>
-            </v-flex>
-            <v-flex xs4>
-              <div style="margin: 100px;">
-                <v-btn large dark color="blue">Event Report</v-btn><br>
-                <v-btn large dark color="#f75611">Event Details</v-btn><br>
+                <v-btn @click="toEventReport(even._id)" large dark color="blue">Event Report</v-btn><br>
+                <v-btn @click="toEventDetail(even._id)" large dark color="#f75611">Event Details</v-btn><br>
               </div>
             </v-flex>
             </v-layout>
@@ -226,11 +195,17 @@
         date: "",
         timeStart: null,
         timeEnd: null,
-        url: 'http://localhost:3000'
+        events: []
       }
     },
     props: ['url'],
     methods: {
+      toEventDetail(id) {
+        this.$router.push(`/event/${id}`)
+      },
+      toEventReport(id) {
+        this.$router.push(`/event/report/${id}`)
+      },
       toAddEvent() {
         this.page = "addevent"
       },
@@ -239,8 +214,6 @@
       },
       handleFileUpload() {
         this.file = this.$refs.file.files[0];
-        console.log(this.file,"patria")
-        // console.log(this.file, 'ini this dot file')
       },
       setAddress(address) {
         this.eventPlace = address
@@ -277,10 +250,23 @@
         .catch((error) => {
           console.log(error);
         })
+      },
+      getEvents() {
+        axios({
+          method: 'get',
+          url: `${this.url}/promotors/events`,
+          headers: {token: localStorage.getItem('token')}
+        })
+        .then((response) => {
+          this.events = response.data.events
+        })
+        .catch((error) => {
+          console.log(error);
+        })
       }
     },
     created() {
-
+      this.getEvents()
     },
     mounted() {
 
