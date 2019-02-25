@@ -8,8 +8,8 @@
       </div>
      </center>
       <br>
-      <div v-if="page == 'editprofile'">
-        <center><h1>Edit Profile</h1></center>
+      <div v-if="page == 'addevent'">
+        <center><h1>Add New Event</h1></center>
         <br>
         <v-form
         ref="form"
@@ -132,7 +132,7 @@
     },
     data: () => {
       return {
-        page: 'joinedevents',
+        page: 'addevent',
         products: [],
         pendingTrans: [],
         onprocessTrans:[],
