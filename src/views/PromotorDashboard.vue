@@ -5,9 +5,13 @@
       <div>
         <v-btn @click="toAddEvent">Add Event Profile</v-btn>
         <v-btn @click="toYourEvents">Your Events</v-btn>
+        <v-btn @click="toScanQr">Scan QR</v-btn>
       </div>
      </center>
       <br>
+      <div v-if="page == 'scanqr'">
+        <QrcodeStream @decode="onDecode"/>
+      </div>
       <div v-if="page == 'addevent'">
         <center><h1>Add New Event</h1></center>
         <br>
@@ -175,10 +179,14 @@
 
 <script>
   import GoogleMap from '../components/GoogleMap'
+  import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 
   export default {
     components: {
-      GoogleMap
+      GoogleMap,
+      QrcodeStream,
+      QrcodeDropZone,
+      QrcodeCapture
     },
     data: () => {
       return {
@@ -200,6 +208,25 @@
     },
     props: ['url'],
     methods: {
+      toScanQr() {
+        this.page = "scanqr"
+      },
+      onDecode(decodedString) {
+        let obj = JSON.parse(decodedString)
+        let {userId, eventId} = obj
+
+        axios({
+          method: 'get',
+          url: `${this.url}/events/attend/${userId}/${eventId}`,
+          headers: {token: localStorage.getItem('token')}
+        })
+        .then((response) => {
+          console.log('berhasil memasukan', userId, eventId);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      },
       toEventDetail(id) {
         this.$router.push(`/event/${id}`)
       },

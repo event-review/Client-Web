@@ -4696,6 +4696,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jsqr@^1.0.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/jsqr/-/jsqr-1.2.0.tgz#f93fc65fa7d1ded78b1bcb020fa044352b04261a"
+  integrity sha512-wKcQS9QC2VHGk7aphWCp1RrFyC0CM6fMgC5prZZ2KV/Lk6OKNoCod9IR6bao+yx3KPY0gZFC5dc+h+KFzCI0Wg==
+
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -7870,6 +7875,14 @@ vue-loader@^15.6.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
+vue-qr-reader@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/vue-qr-reader/-/vue-qr-reader-1.6.0.tgz#5c9ca22ae324b7f2c0a2293944db2e17ab4ffcde"
+  integrity sha512-cR6KE4e5CPSK6dhmBNZnDkXU28CNHaj0geutvn3Lm0j9hM8yEN5PqRD6DHo77Rd0GXG1ZLqP8hPQhxHdEJ8H+A==
+  dependencies:
+    jsqr "^1.0.2"
+    vue "^2.5.13"
+
 vue-router@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
@@ -7904,7 +7917,7 @@ vue2-google-maps@^0.10.6:
     babel-runtime "^5.8.0"
     marker-clusterer-plus "^2.1.4"
 
-vue@^2.6.6:
+vue@^2.5.13, vue@^2.6.6:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.7.tgz#254f188e7621d2d19ee28d0c0442c6d21b53ae2d"
   integrity sha512-g7ADfQ82QU+j6F/bVDioVQf2ccIMYLuR4E8ev+RsDBlmwRkhGO3HhgF4PF9vpwjdPpxyb1zzLur2nQ2oIMAMEg==
