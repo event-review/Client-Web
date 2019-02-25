@@ -16,12 +16,6 @@
           ></v-text-field>
 
           <v-text-field
-          v-model="username"
-          label="username"
-          required
-          ></v-text-field>
-
-          <v-text-field
           v-model="email"
           label="E-mail"
           required
@@ -58,9 +52,8 @@
     data: () => {
       return {
         name: "",
-        username: "",
         email: "",
-        password: "",
+        password: ""
       }
     },
     props: ['url'],
@@ -68,22 +61,20 @@
       registerAccount() {
         let obj = {
           name: this.name,
-          username: this.username,
           email: this.email,
           password: this.password,
         }
 
-        axios.post(`${this.url}/users`, obj)
-          .then((user) => {
-            console.log('Berhasil tambah user');
+        axios.post(`${this.url}/promotors/signup`, obj)
+          .then((promotor) => {
+            console.log('Berhasil tambah promotor');
             this.name = ""
-            this.username = ""
             this.email = ""
             this.password = ""
-            this.$router.push('/login')
+            this.$router.push('/promotor/signin')
           })
           .catch((error) => {
-            console.log(error.message);
+            console.log(error.response);
           })
       }
     }
