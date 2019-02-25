@@ -2,12 +2,13 @@
   <v-app>
     <v-toolbar dark color='#f75611'>
       <h1 @click="toHome">Event Review</h1>
-      <v-btn @click="toHome" flat>Home</v-btn>
-      <v-btn @click="toAbout" flat>About</v-btn>
+      <!-- <v-btn @click="toHome" flat>Home</v-btn>
+      <v-btn @click="toAbout" flat>About</v-btn> -->
+      <v-btn @click="toDashboard" flat>Dashboard</v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat>All Events</v-btn>
-        <v-btn v-if="!isLogin" @click="toUserSignin" flat>Sign In As User</v-btn>
+        <!-- <v-btn flat>All Events</v-btn> -->
+        <!-- <v-btn v-if="!isLogin" @click="toUserSignin" flat>Sign In As User</v-btn> -->
         <v-btn v-if="!isLogin" @click="toPromotorSignin" flat>Sign In As Promotor</v-btn>
         <v-btn v-if="isLogin" @click="logout" flat>Logout</v-btn>
       </v-toolbar-items>
@@ -71,6 +72,9 @@ export default {
       this.$router.push('/')
       this.$store.dispatch('checkLoginState')
     },
+    toDashboard() {
+      this.$router.push('/promotor/dashboard')
+    }
   },
   created() {
     this.$store.dispatch('checkLoginState')
