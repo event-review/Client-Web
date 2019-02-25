@@ -58,12 +58,19 @@
         axios.post(`${this.url}/promotors/signin`, obj)
           .then((response) => {
             localStorage.setItem('token', response.data.token)
+            this.$store.dispatch('checkLoginState')
             this.$router.push('/promotor/dashboard')
           })
           .catch((error) => {
             console.log(error.message);
           })
       },
+    },
+    created() {
+      let token = localStorage.getItem('token')
+      if (token.length !== 0) {
+        this.$router.push('/');
+      }
     }
   }
 </script>
