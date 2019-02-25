@@ -61,7 +61,6 @@
           slot="activator"
           v-model="date"
           label="Date Of Birth"
-          prepend-icon="event"
           readonly
           ></v-text-field>
 

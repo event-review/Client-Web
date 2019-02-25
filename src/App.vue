@@ -2,12 +2,14 @@
   <v-app>
     <v-toolbar dark color='#f75611'>
       <h1 @click="toHome">Event Review</h1>
-      <v-btn flat>Home</v-btn>
-      <v-btn flat>About</v-btn>
+      <v-btn @click="toHome" flat>Home</v-btn>
+      <v-btn @click="toAbout" flat>About</v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn flat>All Events</v-btn>
-        <v-btn flat>Login</v-btn>
+        <v-btn v-if="!isLogin" @click="toUserSignin" flat>Sign In As User</v-btn>
+        <v-btn v-if="!isLogin" @click="toPromotorSignin" flat>Sign In As Promotor</v-btn>
+        <v-btn v-if="isLogin" @click="logout" flat>Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -54,7 +56,29 @@ export default {
   methods: {
     toHome() {
       this.$router.push('/')
-    }
+    },
+    toAbout() {
+      this.$router.push('/about')
+    },
+    toUserSignin() {
+      this.$router.push('/user/signin')
+    },
+    toPromotorSignin() {
+      this.$router.push('/promotor/signin')
+    },
+    logout() {
+      localStorage.clear()
+      this.$router.push('/')
+      this.$store.dispatch('checkLoginState')
+    },
+  },
+  created() {
+    this.$store.dispatch('checkLoginState')
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.isLogin;
+    },
   }
 }
 </script>

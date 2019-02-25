@@ -225,7 +225,8 @@
         eventDescription: "",
         date: "",
         timeStart: null,
-        timeEnd: null
+        timeEnd: null,
+        url: 'http://localhost:3000'
       }
     },
     props: ['url'],
@@ -247,6 +248,7 @@
         this.longitude = marker.lng
       },
       addEvent() {
+        console.log('MASUK BOSQUUU')
         let newevent = {
           name: this.eventName,
           place: this.eventPlace,
@@ -262,7 +264,6 @@
         const formData = new FormData();
         formData.append("file", this.file);
         formData.append("data", JSON.stringify(newevent));
-
         axios({
           method: 'post',
           url: `${this.url}/events`,

@@ -66,10 +66,10 @@
           email: this.email,
           password: this.password
         }
-        console.log(this.url)
         axios.post(`${this.url}/users/signin`, obj)
           .then(({ data }) => {
             localStorage.setItem('token', data.token)
+            this.$store.dispatch('checkLoginState')
             this.$router.push('/')
           })
           .catch((error) => {
