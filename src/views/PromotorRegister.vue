@@ -8,7 +8,7 @@
           <v-form
           ref="form"
           >
-
+           <google-map />
           <v-text-field
           v-model="name"
           label="Name"
@@ -43,11 +43,11 @@
 </template>
 
 <script>
-  // import HelloWorld from '../components/HelloWorld'
+  import GoogleMap from '../components/GoogleMap'
 
   export default {
     components: {
-      // HelloWorld
+      GoogleMap
     },
     data: () => {
       return {
