@@ -1,12 +1,13 @@
 <template>
   <div>
     <div>
-      <h2>Search and add a pin</h2>
+      <h2>Event Location</h2>
+      <br>
       <label>
         <gmap-autocomplete
           @place_changed="setPlace">
         </gmap-autocomplete>
-        <button @click.prevent="addMarker">Add</button>
+        <v-btn color="primary" @click.prevent="addMarker">Add Location</v-btn>
       </label>
       <br/>
 
@@ -60,14 +61,17 @@ export default {
         this.markers.push({ position: marker });
         this.places.push(this.currentPlace);
         this.center = marker;
+        console.log(this.currentPlace.formatted_address)
+        this.$emit('address', this.currentPlace.formatted_address)
+        console.log(marker)
+        this.$emit('marker', marker)
         this.currentPlace = null;
-        console.log(this.places)
-        console.log(this.markers)
+
       }
     },
     geolocate: function() {
       navigator.geolocation.getCurrentPosition(position => {
-        this.center = {
+          this.center = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
