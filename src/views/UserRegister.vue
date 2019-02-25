@@ -101,11 +101,8 @@
 </template>
 
 <script>
-  // import HelloWorld from '../components/HelloWorld'
-
   export default {
     components: {
-      // HelloWorld
     },
     data: () => {
       return {
@@ -144,7 +141,6 @@
           gender: this.gender,
           dob: this.date
         }
-        console.log(newUser)
         const formData = new FormData()
         formData.append("file", this.file)
         formData.append("data", JSON.stringify(newUser))
@@ -155,7 +151,6 @@
           data: formData, 
         })
         .then((user) => {
-          console.log('Berhasil tambah user');
           this.name = ""
           this.username = ""
           this.email = ""
