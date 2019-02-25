@@ -8,55 +8,136 @@
       </div>
      </center>
       <br>
-      <div v-if="page == 'editprofile'">
-        <center><h1>Edit Profile</h1></center>
+      <div v-if="page == 'addevent'">
+        <center><h1>Add New Event</h1></center>
         <br>
         <v-form
         ref="form"
         >
 
-        <h2>Product Image</h2><br>
+        <h2>Event Poster</h2><br>
         <input type="file" ref="file" v-on:change="handleFileUpload()">
         <br>
 
         <v-text-field
-        v-model="productName"
-        label="Product Name"
+        v-model="eventName"
+        label="Event Name"
         required
         ></v-text-field>
+
+        <v-flex xs12 sm6 md4>
+          <v-menu
+            ref="menu"
+            v-model="menu"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            :return-value.sync="date"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            min-width="290px"
+          >
+            <v-text-field
+              slot="activator"
+              v-model="date"
+              label="Event Date"
+              readonly
+            ></v-text-field>
+            <v-date-picker v-model="date" no-title scrollable>
+              <v-spacer></v-spacer>
+              <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+              <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+            </v-date-picker>
+          </v-menu>
+        </v-flex>
+
+        <v-flex xs11 sm5>
+          <v-menu
+            ref="menuTimeStart"
+            v-model="menuTimeStart"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            :return-value.sync="timeStart"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            max-width="290px"
+            min-width="290px"
+          >
+            <v-text-field
+              slot="activator"
+              v-model="timeStart"
+              label="Event Time Start"
+              readonly
+            ></v-text-field>
+            <v-time-picker
+              v-if="menuTimeStart"
+              v-model="time"
+              full-width
+              @click:minute="$refs.menuTimeStart.save(time)"
+            ></v-time-picker>
+          </v-menu>
+        </v-flex>
+
+        <v-flex xs11 sm5>
+          <v-menu
+            ref="menuTimeEnd"
+            v-model="menuTimeEnd"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            :return-value.sync="timeEnd"
+            lazy
+            transition="scale-transition"
+            offset-y
+            full-width
+            max-width="290px"
+            min-width="290px"
+          >
+            <v-text-field
+              slot="activator"
+              v-model="timeEnd"
+              label="Event Time End"
+              readonly
+            ></v-text-field>
+            <v-time-picker
+              v-if="menuTimeEnd"
+              v-model="time"
+              full-width
+              @click:minute="$refs.menuTimeEnd.save(time)"
+            ></v-time-picker>
+          </v-menu>
+        </v-flex>
 
         <v-text-field
-        v-model="productPrice"
+        v-model="eventPrice"
         type="number"
-        label="Price"
+        label="Event Ticket Price"
         required
         ></v-text-field>
 
-        <v-select
-        :items="categories"
-        v-model="productCategory"
-        label="Category"
-        data-vv-name="productCategory"
-        required
-        ></v-select>
-
         <v-textarea
-        v-model="productDescription"
+        v-model="eventDescription"
         label="Description"
         required
         ></v-textarea>
+        <br><br>
 
+        <GoogleMap @address="setAddress" @marker="setMarker"/>
+
+        <br><br>
         <v-btn
         color="success"
-        @click="addProduct"
+        @click="addEvent"
         >
-        Add Product
+        Add Event
         </v-btn>
 
         </v-form>
       </div>
 
-      <div v-if="page == 'joinedevents'">
+      <div v-if="page == 'yourevents'">
         <v-card style="margin-bottom: 20px;">
           <v-container
             fluid
@@ -124,35 +205,71 @@
 </template>
 
 <script>
-  // import HelloWorld from '../components/HelloWorld'
+  import GoogleMap from '../components/GoogleMap'
 
   export default {
     components: {
-      // HelloWorld
+      GoogleMap
     },
     data: () => {
       return {
-        page: 'joinedevents',
-        products: [],
-        pendingTrans: [],
-        onprocessTrans:[],
-        doneTrans: [],
-        categories: [
-        'Playing Cards',
-        'Close Up Magic',
-        'Mentalism',
-        'Money & Coin',
-        'Video & Book'
-        ],
-        productName: "",
-        productPrice: "",
-        productDescription: "",
-        productCategory: "",
+        menu: false,
+        menuTimeStart: false,
+        menuTimeEnd: false,
+        page: 'addevent',
+        longitude: "",
+        latitude: "",
+        eventPlace: "",
+        eventName: "",
+        eventPrice: "",
+        eventDescription: "",
+        date: "",
+        timeStart: null,
+        timeEnd: null
       }
     },
     props: ['url'],
     methods: {
+      handleFileUpload() {
+        this.file = this.$refs.file.files[0];
+      },
+      setAddress(address) {
+        this.eventPlace = address
+      },
+      setMarker(marker) {
+        this.latitude = marker.lat,
+        this.longitude = marker.lng
+      },
+      addEvent() {
+        let newevent = {
+          name: this.eventName,
+          place: this.eventPlace,
+          date: this.date,
+          price: this.eventPrice,
+          timeStart: this.timeStart,
+          timeEnd: this.timeEnd,
+          latitude: this.latitude,
+          longitude: this.longitude,
+          description: this.eventDescription
+        };
 
+        const formData = new FormData();
+        formData.append("file", this.file);
+        formData.append("data", JSON.stringify(newevent));
+
+        axios({
+          method: 'post',
+          url: `${this.url}/events`,
+          data: formData,
+          headers: {token: localStorage.getItem('token')}
+        })
+        .then((response) => {
+          this.page = "yourevents"
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      }
     },
     created() {
 
