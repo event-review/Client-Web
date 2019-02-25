@@ -20,6 +20,7 @@
         name="input-10-1"
         label="Password"
         ></v-text-field>
+        <p>Don't Have an Account, <a @click="toPromotorSignup">Sign Up Here!</a></p>
 
         <v-btn
         color="#f75611" dark
@@ -65,6 +66,9 @@
             console.log(error.message);
           })
       },
+      toPromotorSignup() {
+        this.$router.push('/promotor/signup')
+      }
     },
     created() {
       let token = localStorage.getItem('token')

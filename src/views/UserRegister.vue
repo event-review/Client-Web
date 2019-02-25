@@ -70,7 +70,9 @@
             <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
           </v-date-picker>
           </v-menu>
-          <div>
+          
+          
+          <!-- <div>
             <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
               <img :src="imageUrl" height="150" v-if="imageUrl"/>
               <v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
@@ -82,8 +84,8 @@
                 @change="onFilePicked"
               >
             </v-flex>
-	        </div>
-
+	        </div> -->
+          <input type="file" ref="file" v-on:change="handleFileUpload()">
           <v-btn
           color="#f75611" dark
           @click="registerAccount"
@@ -134,34 +136,41 @@
     },
     methods: {
       registerAccount() {
-        let obj = {
+        let newUser = {
           name: this.name,
           username: this.username,
           email: this.email,
           password: this.password,
-          dob: this.date,
-          gender: this.gender
+          gender: this.gender,
+          dob: this.date
         }
-        console.log(obj, 'watsapp ini obj')
-        console.log (`${this.url}/users/signup`)
-        axios.post(`${this.url}/users/signup`, obj)
-          .then((user) => {
-            console.log('Berhasil tambah user');
-            this.name = ""
-            this.username = ""
-            this.email = ""
-            this.password = ""
-            this.gender = ""
-            this.date = ""
-            this.PageTitle = ""
-			      this.imageName =  ""
-			      this.imageUrl =  ""
-            this.imageFile = ""
-            this.$router.push('/user/signin')
-          })
-          .catch((error) => {
-            console.log(error.message);
-          })
+        console.log(newUser)
+        const formData = new FormData()
+        formData.append("file", this.file)
+        formData.append("data", JSON.stringify(newUser))
+
+        axios({
+          method: 'post',
+          url: `${this.url}/users/signup`,
+          data: formData, 
+        })
+        .then((user) => {
+          console.log('Berhasil tambah user');
+          this.name = ""
+          this.username = ""
+          this.email = ""
+          this.password = ""
+          this.gender = ""
+          this.date = ""
+          this.PageTitle = ""
+          this.imageName =  ""
+          this.imageUrl =  ""
+          this.imageFile = ""
+          this.$router.push('/user/signin')
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        })
       },
       formatDate (date) {
         if (!date) return null
@@ -176,36 +185,43 @@
       pickFile () {
 			  this.$refs.image.click ()
       },
-      onFilePicked (e) {
-			  const files = e.target.files
-			  if(files[0] !== undefined) {
-				  this.imageName = files[0].name
-				if(this.imageName.lastIndexOf('.') <= 0) {
-				  return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-					this.imageUrl = fr.result
-					this.imageFile = files[0] // this is an image file that can be sent to server...
-				})
-			} else {
-				this.imageName = '';
-				this.imageFile = '';
-				this.imageUrl = '';
-			}
-    },
+    //   onFilePicked (e) {
+    //     console.log("atas",e.target.files[0])
+		// 	  const files = e.target.files
+    //     this.file = e.target.files[0]
+		// 	  if(files[0] !== undefined) {
+		// 		  this.imageName = files[0].name
+		// 		if(this.imageName.lastIndexOf('.') <= 0) {
+		// 		  return
+		// 		}
+		// 		const fr = new FileReader ()
+		// 		fr.readAsDataURL(files[0])
+		// 		fr.addEventListener('load', () => {
+		// 			this.imageUrl = fr.result
+    //       this.imageFile = files[0] // this is an image file that can be sent to server...
+    //       console.log(this.file, 'yo watsapppini this.file');
+		// 		})
+		// 	} else {
+		// 		this.imageName = '';
+		// 		this.imageFile = '';
+		// 		this.imageUrl = '';
+    //   }
+    // },
       selectGender(val) {
         console.log(val);
         this.gender = val;
-      }
+      },
+      handleFileUpload() {
+        this.file = this.$refs.file.files[0];
+        console.log(this.file)
+      },
     },
-    created() {
-      let token = localStorage.getItem('token')
-      if (token.length !== 0) {
-        this.$router.push('/');
-      }
-    },
+    // created() {
+    //   let token = localStorage.getItem('token')
+    //   if (token.length !== 0) {
+    //     this.$router.push('/');
+    //   }
+    // },
     mounted() {
 		  var starting = document.getElementsByClassName('starting');
 		  for (var i = starting.length - 1; i >= 0; i--) {
