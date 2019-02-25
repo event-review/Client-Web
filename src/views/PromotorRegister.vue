@@ -8,7 +8,6 @@
           <v-form
           ref="form"
           >
-
           <v-text-field
           v-model="name"
           label="Name"
@@ -43,12 +42,8 @@
 </template>
 
 <script>
-  // import HelloWorld from '../components/HelloWorld'
 
   export default {
-    components: {
-      // HelloWorld
-    },
     data: () => {
       return {
         name: "",
