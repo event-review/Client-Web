@@ -3,8 +3,8 @@
     <v-container grid-list-md text-xs>
       <center>
       <div>
-        <v-btn>Add Event Profile</v-btn>
-        <v-btn>Your Events</v-btn>
+        <v-btn @click="toAddEvent">Add Event Profile</v-btn>
+        <v-btn @click="toYourEvents">Your Events</v-btn>
       </div>
      </center>
       <br>
@@ -230,6 +230,12 @@
     },
     props: ['url'],
     methods: {
+      toAddEvent() {
+        this.page = "addevent"
+      },
+      toYourEvents() {
+        this.page = "yourevents"
+      },
       handleFileUpload() {
         this.file = this.$refs.file.files[0];
       },
