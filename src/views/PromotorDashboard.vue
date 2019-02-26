@@ -305,7 +305,7 @@
       }
     },
     mounted() {
-      this.getEvent()
+      this.getEvents()
     }
   }
 </script>

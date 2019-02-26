@@ -51,7 +51,7 @@ export default {
   name: 'App',
   data () {
     return {
-      url: 'http://localhost:3000',
+      url: 'http://35.197.132.154',
     }
   },
   methods: {
