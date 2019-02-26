@@ -164,9 +164,10 @@
               </v-card-text>
             </v-flex>
             <v-flex xs4>
-              <div style="margin: 100px;">
+              <div style="margin: 50px;">
                 <v-btn @click="toEventReport(even._id)" large dark color="blue">Event Report</v-btn><br>
                 <v-btn @click="toEventDetail(even._id)" large dark color="#f75611">Event Details</v-btn><br>
+                <v-btn @click="toConnectCam(even._id)" large dark color="green">Connect Cam</v-btn><br>
               </div>
             </v-flex>
             </v-layout>
@@ -210,6 +211,9 @@
     methods: {
       toScanQr() {
         this.page = "scanqr"
+      },
+      toConnectCam(id) {
+        this.$router.push(`/event/${id}/connectcam`)
       },
       onDecode(decodedString) {
         let obj = JSON.parse(decodedString)

@@ -10,6 +10,7 @@ import PromotorRegister from './views/PromotorRegister.vue'
 import UserDashboard from './views/UserDashboard.vue'
 import PromotorDashboard from './views/PromotorDashboard.vue'
 import EventReport from './views/EventReport.vue'
+import ConnectCam from './views/ConnectCam.vue'
 
 
 Vue.use(Router)
@@ -72,6 +73,11 @@ export default new Router({
       path: '/event/:id',
       name: 'eventdetail',
       component: Detail
+    },
+    {
+      path: '/event/:id/connectcam',
+      name: 'connectcam',
+      component: ConnectCam
     }
   ]
 })
