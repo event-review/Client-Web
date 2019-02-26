@@ -38,7 +38,7 @@
       <hr>
       <br>
       <br>
-      <v-layout row wrap>
+      <v-layout row wrap v-if="checkData">
         <v-flex xs4 sm4 pa-1>
           <br>
           <br>
@@ -67,7 +67,7 @@
         </v-flex>
       </v-layout>
       <br><br><br>
-      <v-layout row wrap>
+      <v-layout row wrap v-if="checkData">
         <v-flex xs4 sm4 pa-1>
           <br>
           <br>
@@ -120,6 +120,7 @@
     data () {
       return {
         rawData: {},
+        checkData: false,
         beforeEventData: {},
         afterEventData: {},
         barAge: [0,0,0,0,0], // 18-24, 25-45, 35-44, 45-54, 55 - above
@@ -184,7 +185,7 @@
               this.male.min_age = sum
             } if (sum > this.male.max_age) {
               this.male.max_age = sum
-            } 
+            }
           } else {
             this.female.total += 1
             if (sum < this.female.min_age) {
@@ -210,7 +211,7 @@
           } else if (sum < 54) {
             this.barAge[3] += 1
           } else {
-            this.barAge[4] += 1            
+            this.barAge[4] += 1
           }
         });
         //  male: { total: 20, min_age: 20, max_age:  30 },
@@ -294,6 +295,7 @@
         }
          console.log(this.beforePieChart, 'f before pie ')
         console.log(this.afterPieChart, 'f after pie')
+        this.checkData = true
       }
     },
     created() {

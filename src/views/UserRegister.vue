@@ -29,7 +29,7 @@
           required
           label="E-mail"
           ></v-text-field>
-          
+
           <v-text-field
           v-model="password"
           type="password"
@@ -70,8 +70,8 @@
             <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
           </v-date-picker>
           </v-menu>
-          
-          
+
+
           <!-- <div>
             <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
               <img :src="imageUrl" height="150" v-if="imageUrl"/>
@@ -148,7 +148,7 @@
         axios({
           method: 'post',
           url: `${this.url}/users/signup`,
-          data: formData, 
+          data: formData,
         })
         .then((user) => {
           this.name = ""
