@@ -19,7 +19,7 @@
                 <h3>Address: </h3>
                 <p>{{ data.place }}</p>
                 <h3>Time</h3>
-                <p>{{ date }} From {{ data.timeStart }} To {{ data.timeEnd }}</p>     
+                <p>{{ date }} From {{ data.timeStart }} To {{ data.timeEnd }}</p>
                 <GoogleMapDetail :coordinates="data"/>
                 <br>
                 <!-- <v-card-actions>
