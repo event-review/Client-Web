@@ -58,7 +58,7 @@ import GoogleMapDetail from '@/components/GoogleMapDetail'
       connectCam() {
         axios({
           method: 'patch',
-          url: `http://localhost:3000/events/${this.$route.params.id}`,
+          url: `http://35.197.132.154/events/${this.$route.params.id}`,
           data: {data: JSON.stringify({deviceId: this.deviceId})},
           headers: {
             token: localStorage.getItem('token')
@@ -74,7 +74,7 @@ import GoogleMapDetail from '@/components/GoogleMapDetail'
       fetchDetail() {
         axios({
           method: 'get',
-          url: `http://localhost:3000/events/${this.$route.params.id}`,
+          url: `http://35.197.132.154/events/${this.$route.params.id}`,
           headers: {
             token: localStorage.getItem('token')
           }
