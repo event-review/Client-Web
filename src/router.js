@@ -65,7 +65,7 @@ export default new Router({
       component: PromotorDashboard
     },
     {
-      path: '/event/report',
+      path: '/event/report/:id',
       name: 'eventreport',
       component: EventReport
     },

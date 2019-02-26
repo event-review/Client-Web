@@ -110,7 +110,7 @@
         username: "",
         email: "",
         password: "",
-        url: 'http://localhost:3000',
+        url: 'http://35.197.132.154',
         rules: {
           required: value => !! value ||  'Required.',
           counter: value => value.length <= 20 || 'Max 20 characters',
