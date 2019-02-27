@@ -12,11 +12,13 @@
           v-model="name"
           label="Name"
           required
+          :rules="[rules.required]"
           ></v-text-field>
 
           <v-text-field
           v-model="email"
           label="E-mail"
+          :rules="[rules.required, rules.email]"
           required
           ></v-text-field>
 
@@ -25,6 +27,8 @@
           type="password"
           name="input-10-1"
           label="Password"
+          required
+          :rules="[rules.required]"
           ></v-text-field>
 
           <v-btn
@@ -49,7 +53,15 @@
         name: "",
         email: "",
         password: "",
-        url: 'http://35.197.132.154'
+        url: 'http://35.197.132.154',
+        rules: {
+          required: value => !! value ||  'Required.',
+          counter: value => value.length <= 20 || 'Max 20 characters',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          }
+        }
       }
     },
     methods: {
@@ -62,13 +74,14 @@
 
         axios.post(`${this.url}/promotors/signup`, obj)
           .then((promotor) => {
-            console.log('Berhasil tambah promotor');
+            this.$swal("Success Register As Promotor Please Relogin", "", "success")
             this.name = ""
             this.email = ""
             this.password = ""
             this.$router.push('/promotor/signin')
           })
           .catch((error) => {
+            this.$swal(`Upss It Seem Your Input Is Wrong `, '', 'error')
             console.log(error.response);
           })
       }
