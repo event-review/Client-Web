@@ -63,7 +63,8 @@
             this.$router.push('/promotor/dashboard')
           })
           .catch((error) => {
-            console.log(error.message);
+            this.$swal('It seems your email / password is wrong', '', 'error')
+            console.log(error.response.data.message);
           })
       },
       toPromotorSignup() {
