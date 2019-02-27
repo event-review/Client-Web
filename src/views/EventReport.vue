@@ -99,7 +99,7 @@
       <br><br><br>
       <v-layout row wrap>
         <v-flex xs12 sm12 pa-1>
-          <CompareBarCart/>
+          <CompareBarCart v-if="checkData" :before="beforePieChart" :after="afterPieChart"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -173,7 +173,7 @@
         })
       },
       getOverallInfo() {
-        let data = this.rawData.userId
+        let data = this.rawData.userAttend
         data.forEach(datum => {
           let birth_of_year = new Date(datum.dob).getFullYear()
           let this_year = new Date().getFullYear()
@@ -221,11 +221,8 @@
         //  barAge: [100,80,20,0,0], // 18-24, 25-34, 35-44, 45-54, 55 - above
       },
       getEmotionalInfo() {
-        console.log('MASUK EMOTIONAL INFOOO')
         let before = this.beforeEventData.stats
         let after = this.afterEventData.stats
-        console.log(before, 'ini beforeeee')
-        console.log(after, 'ini afterrrr')
         let summarize_before = [0,0,0,0,0,0,0,0] // happiness, neutral, sad, fear, angry, contempt, disgust, surrpise
         let summarize_after = [0,0,0,0,0,0,0,0]
         let sum_before = 0
@@ -286,15 +283,11 @@
         });
         let object = this.beforePieChart
         let i = 0
-        console.log(summarize_before, 'summarized befoer')
-        console.log(summarize_after, 'cok')
         for (const key in object) {
           this.beforePieChart[key] = Math.floor((summarize_before[i] / sum_before) * 100)
           this.afterPieChart[key] = Math.floor((summarize_after[i] / sum_after) * 100)
           i += 1
         }
-         console.log(this.beforePieChart, 'f before pie ')
-        console.log(this.afterPieChart, 'f after pie')
         this.checkData = true
       }
     },
