@@ -1,15 +1,15 @@
 <template>
   <v-app>
     <v-toolbar dark color='#f75611'>
-      <h1 @click="toHome">Event Review</h1>
+      <h1 @click="toHome">EREVIEWD</h1>
       <!-- <v-btn @click="toHome" flat>Home</v-btn>
       <v-btn @click="toAbout" flat>About</v-btn> -->
-      <v-btn @click="toDashboard" flat>Dashboard</v-btn>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <!-- <v-btn flat>All Events</v-btn> -->
         <!-- <v-btn v-if="!isLogin" @click="toUserSignin" flat>Sign In As User</v-btn> -->
-        <v-btn v-if="!isLogin" @click="toPromotorSignin" flat>Sign In As Promotor</v-btn>
+        <v-btn v-if="isLogin" @click="toDashboard" flat>Dashboard</v-btn>
+        <v-btn v-if="!isLogin" @click="toPromotorSignin" flat>Sign In As Event Organizer</v-btn>
         <v-btn v-if="isLogin" @click="logout" flat>Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -28,7 +28,7 @@
         color='#f75611'
       >
         <v-card-text>
-          <h1>Event Review</h1>
+          <h1>EREVIEWD</h1>
         </v-card-text>
 
         <v-card-text class="white--text pt-0">
@@ -38,7 +38,7 @@
         <v-divider></v-divider>
 
         <v-card-text class="white--text">
-          &copy;2019 — <strong>Event Review</strong>
+          &copy;2019 — <strong>EREVIEWD</strong>
         </v-card-text>
       </v-card>
     </v-footer>
