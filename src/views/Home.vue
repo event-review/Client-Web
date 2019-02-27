@@ -13,69 +13,25 @@
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
 
-        <v-flex xs4 sm4 pa-1>
+        <v-flex v-for="even in events" xs4 sm4 pa-1>
           <v-card>
             <v-img
-              src="https://epkcollection.com/wp-content/uploads/2017/11/WSL_EPKposter_VansTripleCrown.jpg"
+              :src="even.imageUrl"
               aspect-ratio="0.667"
               contain
             ></v-img>
 
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Vans Triple Count Surfing</h3>
-                <div> Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.  </div>
-              </div>
-            </v-card-title>
-
-            <v-card-actions>
+            <div>
+              <h3 class="headline mb-0">{{even.name}}</h3>
+              <h4>{{new Date(even.date).toLocaleString().slice(0,10)}} {{even.timeStart}} to {{even.timeEnd}}</h4>
+              <br>
+              <p style="margin-left: 20px; margin-right: 20px;"align="justify">{{even.description}}</p>
+            </div>
+            <br>
+            <!-- <v-card-actions>
               <v-btn flat color="orange">Share</v-btn>
               <v-btn flat color="orange">Explore</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-
-        <v-flex xs4 sm4 pa-1>
-          <v-card>
-            <v-img
-              src="https://d19fbfhz0hcvd2.cloudfront.net/NDF/wp-content/uploads/2014/11/event_posters12.jpg"
-              aspect-ratio="0.667"
-              contain
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Chromeo Kill Paris</h3>
-                <div> Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.  </div>
-              </div>
-            </v-card-title>
-
-            <v-card-actions>
-              <v-btn flat color="orange">Share</v-btn>
-              <v-btn flat color="orange">Explore</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-flex>
-
-        <v-flex xs4 sm4 pa-1>
-          <v-card>
-            <v-img
-              src="https://i.pinimg.com/originals/9a/0d/cc/9a0dccc677dc591ac8cd9e0fe35147e1.jpg"
-              aspect-ratio="0.667"
-              contain
-            ></v-img>
-
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline mb-0">Electro</h3>
-                <div> Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.  </div>
-              </div>
-            </v-card-title>
-
-            <v-card-actions>
-              <v-btn flat color="orange">Share</v-btn>
-              <v-btn flat color="orange">Explore</v-btn>
-            </v-card-actions>
+            </v-card-actions> -->
           </v-card>
         </v-flex>
 
@@ -89,8 +45,10 @@
     components: {
 
     },
+    props: ['url'],
     data () {
       return {
+        events: [],
         items: [
           {
             src: 'https://50nx67a44a-flywheel.netdna-ssl.com/wp-content/uploads/2018/03/Tomorrowland-2017-1068x580.jpg'
@@ -107,5 +65,23 @@
         ]
       }
     },
+    methods: {
+      getEvents() {
+        axios({
+          method: "get",
+          url: `${this.url}/events`,
+          headers: { token: localStorage.getItem("token") }
+        })
+          .then(response => {
+            this.events = response.data.events.slice(0,6);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    },
+    created() {
+      this.getEvents()
+    }
   }
 </script>

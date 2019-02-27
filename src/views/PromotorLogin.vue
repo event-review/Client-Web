@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <br>
-    <center><h1>Promotor Login Account</h1></center>
+    <center><h1>Event Organizer Login Account</h1></center>
     <v-container grid-list-md text-xs-center>
       <center>
       <v-flex xs4>
