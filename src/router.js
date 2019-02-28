@@ -11,6 +11,7 @@ import UserDashboard from './views/UserDashboard.vue'
 import PromotorDashboard from './views/PromotorDashboard.vue'
 import EventReport from './views/EventReport.vue'
 import ConnectCam from './views/ConnectCam.vue'
+import EditEvent from './views/EditEvent.vue'
 
 
 Vue.use(Router)
@@ -68,6 +69,11 @@ export default new Router({
       path: '/event/report/:id',
       name: 'eventreport',
       component: EventReport
+    },
+    {
+      path: '/event/edit/:id',
+      name: 'eventreport',
+      component: EditEvent
     },
     {
       path: '/event/:id',
