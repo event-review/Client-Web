@@ -248,6 +248,15 @@ export default {
         .then(response => {
           this.page = "yourevents";
           this.getEvents();
+          this.eventName = ""
+          this.eventPlace = ""
+          this.date = ""
+          this.eventPrice = ""
+          this.timeStart = ""
+          this.timeEnd = ""
+          this.latitude = ""
+          this.longitude = ""
+          this.eventDescription = ""
         })
         .catch(error => {
           console.log(error);

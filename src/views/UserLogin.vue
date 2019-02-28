@@ -49,7 +49,7 @@
       return {
         email: "",
         password: "",
-        url: 'http://35.197.132.154',
+        url: 'https://ereviewdserver.patriagani.site',
         rules: {
           required: value => !! value ||  'Required.',
           counter: value => value.length <= 20 || 'Max 20 characters',

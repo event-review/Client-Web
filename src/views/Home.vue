@@ -13,7 +13,7 @@
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
 
-        <v-flex v-for="even in events" xs4 sm4 pa-1>
+        <v-flex v-for="(even, i) in events" :key="i" xs4 sm4 pa-1>
           <v-card>
             <v-img
               :src="even.imageUrl"
@@ -25,7 +25,6 @@
               <h3 class="headline mb-0">{{even.name}}</h3>
               <h4>{{new Date(even.date).toLocaleString().slice(0,10)}} {{even.timeStart}} to {{even.timeEnd}}</h4>
               <br>
-              <p style="margin-left: 20px; margin-right: 20px;"align="justify">{{even.description}}</p>
             </div>
             <br>
             <!-- <v-card-actions>

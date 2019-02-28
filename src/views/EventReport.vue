@@ -136,7 +136,7 @@
       fetchEvent() {
         axios({
           method: 'get',
-          url: `http://35.197.132.154/events/${this.$route.params.id}`,
+          url: `https://ereviewdserver.patriagani.site/events/${this.$route.params.id}`,
         })
         .then(({ data }) => {
           this.rawData = data.event
@@ -149,7 +149,7 @@
       fetchBeforeEvent() {
         axios({
           method: 'get',
-          url: `http://35.197.132.154/beforeEvent/${this.$route.params.id}`
+          url: `https://ereviewdserver.patriagani.site/beforeEvent/${this.$route.params.id}`
         })
         .then(({ data }) => {
           this.beforeEventData = data
@@ -162,7 +162,7 @@
       fetchAfterEvent() {
         axios({
           method: 'get',
-          url: `http://35.197.132.154/afterEvent/${this.$route.params.id}`
+          url: `https://ereviewdserver.patriagani.site/afterEvent/${this.$route.params.id}`
         })
         .then(({ data }) => {
           this.afterEventData = data

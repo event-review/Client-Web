@@ -51,7 +51,7 @@ import GoogleMapDetail from '@/components/GoogleMapDetail'
       fetchDetail() {
         axios({
           method: 'get',
-          url: `http://35.197.132.154/events/${this.$route.params.id}`,
+          url: `https://ereviewdserver.patriagani.site/events/${this.$route.params.id}`,
           headers: {
             token: localStorage.getItem('token')
           }
