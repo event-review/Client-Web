@@ -131,6 +131,8 @@
                   <br>
                   <v-btn @click="toEventDetail(even._id)" large dark color="#f75611">Event Details</v-btn>
                   <br>
+                  <v-btn @click="toEditEvent(even._id)" large dark color="blue">Update Event</v-btn>
+                  <br>
                   <v-btn @click="toConnectCam(even._id)" large dark color="green">Connect Cam</v-btn>
                   <br>
                 </div>
@@ -179,6 +181,9 @@ export default {
     },
     toConnectCam(id) {
       this.$router.push(`/event/${id}/connectcam`);
+    },
+    toEditEvent(id) {
+      this.$router.push(`/event/edit/${id}`);
     },
     async onDecode(decodedString) {
       try {
