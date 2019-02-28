@@ -65,6 +65,7 @@ import GoogleMapDetail from '@/components/GoogleMapDetail'
           }
         })
         .then(({data}) => {
+          this.$swal(`Camera ${this.deviceId} Connected`, "", "success");
           console.log(data.message);
         })
         .catch((error) => {
