@@ -26,7 +26,7 @@
           <br>
           <h3>Female: {{ this.female.min_age }} - {{ this.female.max_age }}</h3>
           <br>
-          <BarCart :data="[this.barAge[0],this.barAge[1],this.barAge[2],this.barAge[3],this.barAge[4]]" :labels="['18-24', '25-24', '35-44', '45-54', '55 - Above']"/>
+          <BarCart :data="[this.barAge[0],this.barAge[1],this.barAge[2],this.barAge[3],this.barAge[4]]" :labels="['18-24', '25-34', '35-44', '45-54', '55 - Above']"/>
         </v-flex>
 
       </v-layout>
