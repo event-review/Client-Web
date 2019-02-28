@@ -159,7 +159,7 @@ export default {
       })
         .then(response => {
           this.$swal(`Event Updated`, "", "success");
-          this.$router.push(`/events/${this.$route.params.id}`)
+          this.$router.push(`/event/${this.$route.params.id}`)
         })
         .catch(error => {
           console.log(error);
